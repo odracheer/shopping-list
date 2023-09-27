@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Ricardo Palungguk Natama</span>
+            <form method="post" action="{% url 'main:logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-outline-success" type="submit">Logout</button>
+                <style>
+                    .btn-outline-success {
+                        color: #fff; /* Warna teks sesuai dengan warna outline tombol */
+                        background-color: transparent; /* Warna latar belakang putih */
+                        border-color: #fff; /* Warna outline sesuai dengan warna teks tombol */
+                        transition: background-color 0.3s, color 0.3s; /* Efek transisi saat hover */
+                    }
+                    .btn-outline-success:hover {
+                        color: #000; /* Warna teks saat hover */
+                        background-color: #fff; /* Latar belakang saat hover */
+                        border-color: #000;
+                    }
+                </style>
+            </form>
+        </div>
+    </nav>
     <h1>Shopping List Page</h1>
 
     <h5>Name:</h5>
@@ -25,6 +47,18 @@
                 <td>{{product.price}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.date_added}}</td>
+                <td>
+                    <a href="{% url 'main:edit_product' product.pk %}">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
+                    <a href="{% url 'main:delete_product' product.pk %}">
+                          <button>
+                              Delete
+                          </button>
+                      </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
